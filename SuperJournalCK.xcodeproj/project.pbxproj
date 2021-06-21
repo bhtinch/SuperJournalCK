@@ -21,6 +21,10 @@
 		62257F392681245800A17003 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62257F382681245800A17003 /* User.swift */; };
 		62257F3B2681245F00A17003 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62257F3A2681245F00A17003 /* Journal.swift */; };
 		62257F3D2681246E00A17003 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62257F3C2681246E00A17003 /* Entry.swift */; };
+		62257F67268153F800A17003 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62257F66268153F800A17003 /* UserController.swift */; };
+		62257F692681540000A17003 /* JournalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62257F682681540000A17003 /* JournalController.swift */; };
+		62257F6B2681540900A17003 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62257F6A2681540900A17003 /* EntryController.swift */; };
+		62257F6D2681572F00A17003 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62257F6C2681572F00A17003 /* Alerts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +45,10 @@
 		62257F382681245800A17003 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		62257F3A2681245F00A17003 /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
 		62257F3C2681246E00A17003 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
+		62257F66268153F800A17003 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		62257F682681540000A17003 /* JournalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalController.swift; sourceTree = "<group>"; };
+		62257F6A2681540900A17003 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
+		62257F6C2681572F00A17003 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +136,9 @@
 		6201C1902681126F0057F310 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				62257F66268153F800A17003 /* UserController.swift */,
+				62257F682681540000A17003 /* JournalController.swift */,
+				62257F6A2681540900A17003 /* EntryController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -146,6 +157,7 @@
 			children = (
 				62257F342681240400A17003 /* CKError.swift */,
 				62257F362681244100A17003 /* DateFormatter.swift */,
+				62257F6C2681572F00A17003 /* Alerts.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -220,15 +232,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62257F6B2681540900A17003 /* EntryController.swift in Sources */,
 				62257F3D2681246E00A17003 /* Entry.swift in Sources */,
+				62257F692681540000A17003 /* JournalController.swift in Sources */,
 				6201C17626810E1B0057F310 /* AppDelegate.swift in Sources */,
 				6201C1962681137C0057F310 /* JournalDetailViewController.swift in Sources */,
+				62257F67268153F800A17003 /* UserController.swift in Sources */,
 				62257F3B2681245F00A17003 /* Journal.swift in Sources */,
 				6201C194268113730057F310 /* JournalListViewController.swift in Sources */,
 				62257F372681244100A17003 /* DateFormatter.swift in Sources */,
 				62257F392681245800A17003 /* User.swift in Sources */,
 				6201C198268114CB0057F310 /* EntryDetailViewController.swift in Sources */,
 				62257F352681240400A17003 /* CKError.swift in Sources */,
+				62257F6D2681572F00A17003 /* Alerts.swift in Sources */,
 				6201C17826810E1B0057F310 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

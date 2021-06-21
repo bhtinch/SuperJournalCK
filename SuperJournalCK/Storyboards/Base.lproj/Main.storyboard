@@ -60,7 +60,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Journals" id="GiA-XG-sLW">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="akH-Xl-GV9"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="akH-Xl-GV9">
+                            <connections>
+                                <action selector="addJournalButtonTapped:" destination="BYZ-38-t0r" id="eQr-sY-4cq"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="rdT-mA-GkT" id="OeN-Wu-Xec"/>

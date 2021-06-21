@@ -24,6 +24,14 @@ class Journal {
         self.title = title
         self.entryRefs = entryRefs
     }
+    
+    convenience init?(ckRecord: CKRecord) {
+        guard let title = ckRecord[JournalStrings.title] as? String else { return nil }
+        
+        let entryRefs = ckRecord[JournalStrings.entryRefs] as? [CKRecord.Reference]
+        
+        self.init(ckRecordID: ckRecord.recordID, title: title, entryRefs: entryRefs)
+    }
 }   //  End of Class
 
 extension Journal: Equatable {
