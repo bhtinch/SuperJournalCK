@@ -18,6 +18,8 @@ class JournalListViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        checkUser()
     }
     
     //  MARK: - ACTIONS
@@ -34,6 +36,37 @@ class JournalListViewController: UIViewController {
     }
     
     //  MARK: - METHODS
+    func checkUser() {
+        if UserController.currentUser == nil {
+            UserController.getCurrentUser { success in
+                DispatchQueue.main.async {
+                    switch success {
+                    case true:
+                        self.fetchJournals()
+                    case false:
+                        print("Unable to check user status")
+                    }
+                }
+            }
+        } else {
+            fetchJournals()
+        }
+    }
+    
+    func fetchJournals() {
+        JournalController.fetchJournals { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let journals):
+                    print("successfully fetched \(journals?.count ?? 0) journals")
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print("***Error*** in Function: \(#function)\n\nError: \(error)\n\nDescription: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
     func createNewJournalWith(title: String) {
         JournalController.createJournalWith(title: title) { result in
             DispatchQueue.main.async {

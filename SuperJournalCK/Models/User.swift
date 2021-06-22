@@ -9,20 +9,23 @@ import Foundation
 import CloudKit
 
 struct UserStrings {
-    static let recordType = "User"
-    static let name = "name"
+    static let recordType = "Users"
     static let journalRefs = "journalRefs"
 }
 
 class User {
     let ckRecordID: CKRecord.ID
-    let name: String
-    let journalRefs: [CKRecord.Reference]?
+    var journalRefs: [CKRecord.Reference]?
     
-    init(ckRecordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString), name: String, journalRefs: [CKRecord.Reference]?) {
+    init(ckRecordID: CKRecord.ID, journalRefs: [CKRecord.Reference]?) {
         self.ckRecordID = ckRecordID
-        self.name = name
         self.journalRefs = journalRefs
+    }
+    
+    convenience init?(ckRecord: CKRecord) {
+        let journalRefs = ckRecord[UserStrings.journalRefs] as? [CKRecord.Reference]
+        
+        self.init(ckRecordID: ckRecord.recordID, journalRefs: journalRefs)
     }
 }   //  End of Class
 
@@ -37,9 +40,7 @@ extension User: Equatable {
 extension CKRecord {
     convenience init(user: User) {
         self.init(recordType: UserStrings.recordType, recordID: user.ckRecordID)
-        
-        self.setValue(user.name, forKey: UserStrings.name)
-        
+                
         if let refs = user.journalRefs {
             self.setValue(refs, forKey: UserStrings.journalRefs)
         }
