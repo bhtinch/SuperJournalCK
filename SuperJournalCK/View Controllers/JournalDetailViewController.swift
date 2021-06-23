@@ -20,7 +20,14 @@ class JournalDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        if let journal = journal { self.title = journal.title }
+        
         fetchEntries()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadData()
     }
     
     //  MARK: - ACTIONS
@@ -30,11 +37,14 @@ class JournalDetailViewController: UIViewController {
     func fetchEntries() {
         guard let journal = journal else { return }
         EntryController.fetchEntries(journal: journal) { result in
-            switch result {
-            case .success(let entries):
-                print("successfully fetched \(entries?.count ?? 0) entries")
-            case .failure(let error):
-                print("***Error*** in Function: \(#function)\n\nError: \(error)\n\nDescription: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let entries):
+                    print("successfully fetched \(entries?.count ?? 0) entries")
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print("***Error*** in Function: \(#function)\n\nError: \(error)\n\nDescription: \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -42,14 +52,19 @@ class JournalDetailViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toNewEntryDetailVC" {
-            guard let destination = segue.destination as? EntryDetailViewController else { return }
+            guard let destination = segue.destination as? EntryDetailViewController,
+                  let journal = journal else { return }
+            
+            destination.journal = journal
             destination.entry = nil
         }
         
         if segue.identifier == "toSelectedEntryDetailVC" {
             guard let destination = segue.destination as? EntryDetailViewController,
-                  let indexPath = tableView.indexPathForSelectedRow else { return }
+                  let indexPath = tableView.indexPathForSelectedRow,
+                  let journal = journal  else { return }
             
+            destination.journal = journal
             destination.entry = EntryController.entries[indexPath.row]
         }
         

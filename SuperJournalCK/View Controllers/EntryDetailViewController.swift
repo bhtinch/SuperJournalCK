@@ -13,6 +13,7 @@ class EntryDetailViewController: UIViewController {
     @IBOutlet weak var bodyTextView: UITextView!
     
     //  MARK: - PROPERTIES
+    var journal: Journal?
     var entry: Entry?
 
     //  MARK: - LIFECYCLES
@@ -23,18 +24,17 @@ class EntryDetailViewController: UIViewController {
     
     //  MARK: - ACTIONS
     @IBAction func saveButtonTapped(_ sender: Any) {
-        guard let title = titleTextField.text, title.isEmpty else { return }
+        print("saved button tapped.")
+        
+        guard let title = titleTextField.text, !title.isEmpty,
+              let journal = journal else { return }
         
         let body = bodyTextView.text ?? "Type here..."
         
-        EntryController.createEntryWith(title: title, body: body) { result in
-            switch result {
-            case .success(let entry):
-                print("successfully saved entry with title: \(entry.title).")
-                Alerts.presentAlertWith(title: "Success!", message: "Entry Saved.", sender: self)
-            case .failure(let error):
-                print("***Error*** in Function: \(#function)\n\nError: \(error)\n\nDescription: \(error.localizedDescription)")
-            }
+        if entry == nil {
+            saveNewEntry(title: title, body: body, journal: journal)
+        } else {
+            updateCurrentEntry(title: title, body: body, journal: journal)
         }
     }
     
@@ -43,5 +43,32 @@ class EntryDetailViewController: UIViewController {
         guard let entry = entry else { return }
         titleTextField.text = entry.title
         bodyTextView.text = entry.body
+    }
+    
+    func saveNewEntry(title: String, body: String, journal: Journal) {
+        EntryController.createEntryWith(title: title, body: body, journal: journal) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let entry):
+                    print("successfully saved entry with title: \(entry.title).")
+                    Alerts.presentAlertWith(title: "Success!", message: "Entry Saved.", sender: self)
+                case .failure(let error):
+                    print("***Error*** in Function: \(#function)\n\nError: \(error)\n\nDescription: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func updateCurrentEntry(title: String, body: String, journal: Journal) {
+        EntryController.update(entry: entry!, journal: journal, title: title, body: body) { success in
+            DispatchQueue.main.async {
+                if success {
+                    print("entry successfully updated.")
+                    Alerts.presentAlertWith(title: "Success!", message: "Entry Saved.", sender: self)
+                } else {
+                    print("***Error*** in Function: \(#function)\n\nError saving entry.")
+                }
+            }
+        }
     }
 }

@@ -17,8 +17,8 @@ struct EntryStrings {
 
 class Entry {
     let ckRecordID: CKRecord.ID
-    let title: String
-    let body: String
+    var title: String
+    var body: String
     //let journalRef: CKRecord.Reference
     
     init(ckRecordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString), title: String, body: String) {
@@ -44,10 +44,10 @@ extension Entry: Equatable {
 
 //  MARK: - CKRECORD
 extension CKRecord {
-    convenience init(entry: Entry) {
+    convenience init(entry: Entry, journal: Journal) {
         self.init(recordType: EntryStrings.recordType, recordID: entry.ckRecordID)
         
-        let journalRef = CKRecord.Reference(recordID: entry.ckRecordID, action: .none)
+        let journalRef = CKRecord.Reference(recordID: journal.ckRecordID, action: .none)
         
         self.setValuesForKeys([
             EntryStrings.title : entry.title,
