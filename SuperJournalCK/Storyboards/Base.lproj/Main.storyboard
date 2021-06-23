@@ -44,7 +44,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="09b-eh-43R" kind="show" id="ERI-mW-BOk"/>
+                                            <segue destination="09b-eh-43R" kind="show" identifier="toJournalDetailVC" id="ERI-mW-BOk"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -110,7 +110,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="F7c-hg-gv9" kind="show" id="6Ed-ta-lcI"/>
+                                            <segue destination="F7c-hg-gv9" kind="show" identifier="toSelectedEntryDetailVC" id="6Ed-ta-lcI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -128,7 +128,7 @@
                     <navigationItem key="navigationItem" title="Journal Title" id="1za-Mz-ZDY">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="wOo-JM-gRG">
                             <connections>
-                                <segue destination="F7c-hg-gv9" kind="show" id="W6H-82-HNv"/>
+                                <segue destination="F7c-hg-gv9" kind="show" identifier="toNewEntryDetailVC" id="W6H-82-HNv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -209,7 +209,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6Ed-ta-lcI"/>
+        <segue reference="W6H-82-HNv"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">

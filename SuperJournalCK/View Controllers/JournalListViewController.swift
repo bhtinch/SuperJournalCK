@@ -83,6 +83,12 @@ class JournalListViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toJournalDetailVC" {
+            guard let destination = segue.destination as? JournalDetailViewController,
+                  let indexPath = tableView.indexPathForSelectedRow else { return }
+            
+            destination.journal = JournalController.journals[indexPath.row]
+        }
     }
 }   //  End of Class
 
@@ -97,6 +103,7 @@ extension JournalListViewController: UITableViewDelegate, UITableViewDataSource 
         let journal = JournalController.journals[indexPath.row]
         
         cell.textLabel?.text = journal.title
+        cell.detailTextLabel?.text = "\(journal.entryRefs?.count ?? 0) Entries"
         
         return cell
     }

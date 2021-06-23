@@ -25,9 +25,14 @@ struct JournalController {
             
             if let record = record {
                 
-                let reference = CKRecord.Reference(record: record, action: .none)
+                //  create array of CKRecord.Reference objects for each journal in the 'journals' array.
+                var journalRefs = journals.compactMap { CKRecord.Reference(recordID: $0.ckRecordID, action: .none) }
                 
-                UserController.updateUserWith(journalRefs: [reference]) { success in
+                //  create a CKRecord.Referece object for the new journal to be saved and apped it to the array.
+                let reference = CKRecord.Reference(record: record, action: .none)
+                journalRefs.append(reference)
+                
+                UserController.updateUserWith(journalRefs: journalRefs) { success in
                     DispatchQueue.main.async {
                         switch success {
                         case true:

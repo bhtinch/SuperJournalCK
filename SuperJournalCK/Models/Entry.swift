@@ -12,17 +12,20 @@ struct EntryStrings {
     static let recordType = "Entry"
     static let title = "title"
     static let body = "body"
+    static let journalRef = "journalRef"
 }
 
 class Entry {
     let ckRecordID: CKRecord.ID
     let title: String
     let body: String
+    //let journalRef: CKRecord.Reference
     
     init(ckRecordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString), title: String, body: String) {
         self.ckRecordID = ckRecordID
         self.title = title
         self.body = body
+        //self.journalRef = journalRef
     }
     
     convenience init?(ckRecord: CKRecord) {
@@ -44,9 +47,12 @@ extension CKRecord {
     convenience init(entry: Entry) {
         self.init(recordType: EntryStrings.recordType, recordID: entry.ckRecordID)
         
+        let journalRef = CKRecord.Reference(recordID: entry.ckRecordID, action: .none)
+        
         self.setValuesForKeys([
             EntryStrings.title : entry.title,
-            EntryStrings.body : entry.body
+            EntryStrings.body : entry.body,
+            EntryStrings.journalRef : journalRef
         ])
     }
 }   //  End of Extension
