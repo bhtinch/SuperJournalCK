@@ -47,7 +47,7 @@ extension CKRecord {
     convenience init(entry: Entry, journal: Journal) {
         self.init(recordType: EntryStrings.recordType, recordID: entry.ckRecordID)
         
-        let journalRef = CKRecord.Reference(recordID: journal.ckRecordID, action: .none)
+        let journalRef = CKRecord.Reference(recordID: journal.ckRecordID, action: .deleteSelf)
         
         self.setValuesForKeys([
             EntryStrings.title : entry.title,

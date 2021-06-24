@@ -78,4 +78,17 @@ struct JournalController {
         }
         publicDB.add(fetchOp)
     }
+    
+    static func deleteJournalWith(journal: Journal, completion: @escaping(Bool) -> Void ) {
+        publicDB.delete(withRecordID: journal.ckRecordID) { _, error in
+            if let error = error {
+                print("***Error*** in Function: \(#function)\n\nError: \(error)\n\nDescription: \(error.localizedDescription)")
+                return completion(false)
+            }
+            guard let index = journals.firstIndex(of: journal) else { return }
+            journals.remove(at: index)
+            
+            completion(true)
+        }
+    }
 }   //  End of Struct

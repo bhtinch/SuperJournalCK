@@ -107,4 +107,18 @@ extension JournalListViewController: UITableViewDelegate, UITableViewDataSource 
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let journal = JournalController.journals[indexPath.row]
+            
+            JournalController.deleteJournalWith(journal: journal) { success in
+                DispatchQueue.main.async {
+                    if success {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
+                }
+            }
+        }
+    }
 }   //  End of Extension
